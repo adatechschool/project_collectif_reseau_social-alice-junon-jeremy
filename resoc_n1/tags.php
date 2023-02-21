@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 
 <?php
@@ -13,7 +17,7 @@ include 'composants/header.php';
     /**
      * Etape 1: Le mur concerne un mot-clé en particulier
      */
-    $tagId = intval($_GET['tag_id']);
+    $tagId = intval($_SESSION['connected_id']);
     ?>
     <?php
     /**
@@ -44,12 +48,14 @@ include 'composants/header.php';
     </aside>
     <main>
         <?php
+
         /**
          * Etape 3: récupérer tous les messages avec un mot clé donné
          */
         $laQuestionEnSql = "
                     SELECT posts.content,
-                    users.id,
+                    posts.id as post_id,
+                    users.id as user_id, 
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -89,13 +95,19 @@ include 'composants/header.php';
                     <p><?php echo $post['content'] ?></p>
                 </div>
                 <footer>
-                    <small>♥ <?php echo $post['like_number'] ?></small>
+                    <small>
+                        <form method="post">
+                            <input class="likebutton" type="hidden" value="<?php echo $post['post_id'] ?>" name="post_id"></input>
+                            <input class="likebutton" type='submit' value="♥ <?php echo $post['like_number'] ?>">
+                        </form>
+                    </small>
                     <?php
                     $taglist = $post['taglist'];
                     $tags = explode(",", $post['taglist']);
                     foreach ($tags as $value) {
                         echo "<a href=''> #" . $value . "</a>";
                     }
+                    include('addlike.php');
                     ?>
                 </footer>
             </article>
