@@ -123,7 +123,9 @@ include 'composants/header.php';
                     $taglist = $post['taglist'];
                     $tags = explode(",", $post['taglist']);
                     foreach ($tags as $value) {
-                        echo "<a href=''> #" . $value . "</a>";
+                    ?>
+                        <a href="tags.php?tag_id=<?php echo $tag['id'] ?>"><?php echo "#" . $value ?></a>
+                    <?php
                     }
                     ?>
                 </footer>
