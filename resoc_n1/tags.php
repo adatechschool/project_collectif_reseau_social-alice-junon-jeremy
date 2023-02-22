@@ -17,7 +17,8 @@ include 'composants/header.php';
     /**
      * Etape 1: Le mur concerne un mot-clé en particulier
      */
-    $tagId = intval($_SESSION['connected_id']);
+    $userId = intval($_SESSION['connected_id']);
+    $tagId = intval($_GET['tag_id']);
     ?>
     <?php
     /**
@@ -48,6 +49,7 @@ include 'composants/header.php';
     </aside>
     <main>
         <?php
+        include('addlike.php');
 
         /**
          * Etape 3: récupérer tous les messages avec un mot clé donné
@@ -107,7 +109,6 @@ include 'composants/header.php';
                     foreach ($tags as $value) {
                         echo "<a href=''> #" . $value . "</a>";
                     }
-                    include('addlike.php');
                     ?>
                 </footer>
             </article>

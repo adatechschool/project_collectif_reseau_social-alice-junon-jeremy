@@ -10,6 +10,7 @@ include 'composants/header.php';
 
 <div id="wrapper">
     <?php
+    $tagId = intval($_GET['tag_id']);
     /**
      * Etape 1: Le mur concerne un utilisateur en particulier
      * La première étape est donc de trouver quel est l'id de l'utilisateur
@@ -82,10 +83,10 @@ include 'composants/header.php';
 
             <form method='post'><button class="follow" type="submit" name="follow">Follow <?php echo $user["alias"] ?></button></form>
         <?php } else {
-                 include 'composants/buttonfollowed.php';
-                 // echo "Vous etes déjà abonné";
+                        include 'composants/buttonfollowed.php';
+                        // echo "Vous etes déjà abonné";
                     }
-                                
+
         ?>
     </aside>
     <main>
@@ -141,10 +142,12 @@ include 'composants/header.php';
                         </form>
                     </small>
                     <?php
+
                     $taglist = $post['taglist'];
                     $tags = explode(",", $post['taglist']);
-                    foreach ($tags as $value) {
-                        echo "<a href=''> #" . $value . "</a>";
+                    foreach ($tags as $value) { ?>
+                        <a href="tags.php?tag_id=<?php echo $tags['id'] ?>"><?php echo "#" . $value ?></a>
+                    <?php
                     }
                     ?>
                 </footer>
