@@ -41,9 +41,25 @@ include 'composants/header.php';
         <img src="./img/user.jpg" alt="Portrait de l'utilisatrice" />
         <section>
             <h3>Présentation</h3>
-            <p>Sur cette page vous trouverez les derniers messages comportant
+            <p>Sur cette page vous trouverez les derniers messages avec
                 le mot-clé <?php echo $tag['label'] ?>
-            </p>
+            </p><?php
+
+                $laQuestionEnSql = "SELECT * FROM `tags` LIMIT 50";
+                $lesInformations = $mysqli->query($laQuestionEnSql);
+
+                if (!$lesInformations) {
+                    echo ("Échec de la requete : " . $mysqli->error);
+                    exit();
+                }
+
+                while ($tag = $lesInformations->fetch_assoc()) {
+
+                ?>
+                <b>
+                    <a href="tags.php?tag_id=<?php echo $tag['id'] ?>"><?php echo "#" . $tag['label'] ?></a>
+                </b>
+            <?php } ?>
 
         </section>
     </aside>

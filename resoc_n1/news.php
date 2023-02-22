@@ -19,24 +19,7 @@ include 'composants/header.php';
     <main>
         <!-- L'article qui suit est un exemple pour la présentation et 
                   @todo: doit etre retiré -->
-        <article>
-            <h3>
-                <time datetime='2020-02-01 11:12:13'>31 février 2010 à 11h12</time>
-            </h3>
-            <address>par AreTirer</address>
-            <div>
-                <p>Ceci est un paragraphe</p>
-                <p>Ceci est un autre paragraphe</p>
-                <p>... de toutes manières il faut supprimer cet
-                    article et le remplacer par des informations en
-                    provenance de la base de donnée (voir ci-dessous)</p>
-            </div>
-            <footer>
-                <small>♥1012 </small>
-                <a href="">#lorem</a>,
-                <a href="">#piscitur</a>,
-            </footer>
-        </article>
+
 
         <?php
         /*
@@ -119,10 +102,18 @@ include 'composants/header.php';
                         </form>
                     </small>
                     <?php
+
+
                     $taglist = $post['taglist'];
                     $tags = explode(",", $post['taglist']);
                     foreach ($tags as $value) {
-                        echo "<a href=''> #" . $value . "</a>";
+                        $laQuestionEnSql = "SELECT tags.id FROM tags WHERE tags.label= '$value' ";
+                        $lesInformations = $mysqli->query($laQuestionEnSql);
+                        $tag = $lesInformations->fetch_assoc();
+                        //echo print_r($tag) 
+                    ?>
+                        <a href="tags.php?tag_id=<?php echo $tag['id'] ?>"><?php echo "#" . $value ?></a>
+                    <?php
                     }
                     ?>
                 </footer>
