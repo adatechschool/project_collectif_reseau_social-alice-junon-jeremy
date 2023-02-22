@@ -124,7 +124,7 @@ include 'composants/header.php';
                     $tags = explode(",", $post['taglist']);
                     foreach ($tags as $value) {
                     ?>
-                        <a href="tags.php?tag_id=<?php echo $tag['id'] ?>"><?php echo "#" . $value ?></a>
+                        <a href="tags.php?tag_id=<?php echo $tagId ?>"><?php echo "#" . $value ?></a>
                     <?php
                     }
                     ?>
